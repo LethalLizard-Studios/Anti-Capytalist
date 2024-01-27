@@ -44,6 +44,9 @@ public class Island : MonoBehaviour
     public void AddToListCollect()
     {
         if (m_isMyLand && !GameManager.Instance.collectIslands.Contains(this))
+        {
             GameManager.Instance.collectIslands.Add(this);
+            GameManager.Instance.AddResource(4, m_defense);
+        }
     }
 }

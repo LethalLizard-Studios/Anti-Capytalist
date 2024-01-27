@@ -46,6 +46,8 @@ public class CameraMovement : MonoBehaviour
     {
         Vector3 pos = island.transform.position;
 
+        ShopManager.Instance.CloseStorefront();
+
         character.JumpToPoint(island.m_playerMovePt.position);
         m_movePos = new Vector3(pos.x, pos.y + 10f, pos.z);
 

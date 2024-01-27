@@ -63,6 +63,7 @@ public class InteractionInterface : MonoBehaviour
                 break;
             case 1:
                 startWarUI.SetActive(true);
+                warStrengthAmount.text = GameManager.Instance.botDefense[island.m_enemyLand].ToString();
                 performUI.SetActive(true);
                 break;
             case 2:
@@ -75,6 +76,9 @@ public class InteractionInterface : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Performed)
         {
+            if (currentIsland == null)
+                return;
+
             if (currentIsland.interfaceIndex == -1)
                 return;
 
@@ -94,6 +98,9 @@ public class InteractionInterface : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Performed)
         {
+            if (currentIsland == null)
+                return;
+
             if (currentIsland.interfaceIndex == -1)
                 return;
 
@@ -119,7 +126,10 @@ public class InteractionInterface : MonoBehaviour
 
     public void Shop()
     {
+        if (currentIsland == null)
+            return;
 
+        ShopManager.Instance.OpenStorefront(currentIsland);
     }
 
     public void ClaimLand()
@@ -134,17 +144,29 @@ public class InteractionInterface : MonoBehaviour
         currentIsland.boat.SetActive(true);
         currentIsland.m_defense = 1;
 
-        if (currentIsland.m_isMyLand)
-            currentIsland.boat.GetComponent<SetTeamColor>().Change(team.materials[0]);
-        else
-            currentIsland.boat.GetComponent<SetTeamColor>().Change(team.materials[currentIsland.m_enemyLand + 1]);
+        currentIsland.boat.GetComponent<SetTeamColor>().Change(team.materials[0]);
 
+        currentIsland.Select();
         Show(currentIsland);
     }
 
     public void Invade()
     {
-        //if (warStrengthAmount.text)
+        if (currentIsland == null)
+            return;
+
+        if (GameManager.Instance.militaryStrength > GameManager.Instance.botDefense[currentIsland.m_enemyLand])
+        {
+            War war;
+
+            if (currentIsland.TryGetComponent<War>(out war))
+            {
+                war.Defeated();
+
+                currentIsland.Select();
+                Show(currentIsland);
+            }
+        }
     }
 
     public void Harvest()

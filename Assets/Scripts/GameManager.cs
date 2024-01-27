@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
 
     public bool controller = true;
 
+    public int[] botDefense = new int[2];
+
     public int lumberAmount = 0;
     [SerializeField] private TextMeshProUGUI lumberTxt;
     public int stoneAmount = 0;
@@ -22,7 +24,7 @@ public class GameManager : MonoBehaviour
 
     public List<Island> collectIslands = new List<Island>();
 
-    private const int COLLECT_TIME = 60;
+    private const int COLLECT_TIME = 30;
 
     void Awake()
     {
@@ -82,5 +84,7 @@ public class GameManager : MonoBehaviour
         {
             island.resourceAmount += island.resourceMultiplier;
         }
+
+        StartCoroutine(CollectTimer());
     }
 }
