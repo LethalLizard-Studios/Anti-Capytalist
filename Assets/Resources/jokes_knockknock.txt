@@ -1,0 +1,61 @@
+S Tank
+C You're Welcome
+- Tank-tastic!
+- Tank Top
+- Tank POO!
+S Cow says
+C No, cow says moooo!
+- z
+- z
+- z
+S Says
+C Says me!
+- z
+- z
+- z
+S Honey bee
+C Honey bee a dear and get that for me please!
+- z
+- z
+- z
+S A little old lady
+C Hey, you can yodel!
+- z
+- z
+- z
+S Snow
+C Snow use. The joke is over
+- z
+- z
+- z
+S Hawaii
+C I'm good. Hawaii you?
+- z
+- z
+- z
+S Woo
+C Glad you're excited, too!
+- z
+- z
+- z
+S Orange
+C Orange you going to let me in?
+- z
+- z
+- z
+S Who
+C I didn't know you were an owl!
+- z
+- z
+- z
+S Anita
+C Let me in! Anita borrow something
+- z
+- z
+- z
+S Leaf
+C Leaf me alone!
+- wgsg
+- thfjyg
+- afafa
+E
