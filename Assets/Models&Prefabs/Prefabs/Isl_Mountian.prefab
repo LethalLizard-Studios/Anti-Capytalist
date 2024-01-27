@@ -63,6 +63,7 @@ MonoBehaviour:
   m_enemyLand: -1
   resourceType: -1
   resourceAmount: 0
+  resourceMultiplier: 1
   boat: {fileID: 1936836760908379675}
   bigBoat: {fileID: 7284221167314414122}
   upgrade: {fileID: 5959799824843406315}
@@ -728,7 +729,7 @@ Transform:
   m_GameObject: {fileID: 7784783306771429834}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 14.5, z: 0}
+  m_LocalPosition: {x: -1.5, y: 10.5, z: 3.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

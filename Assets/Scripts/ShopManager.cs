@@ -92,6 +92,7 @@ public class ShopManager : MonoBehaviour
 
             GameManager.Instance.AddResource(4, 2);
 
+            currentIsland.m_defense += 2;
             currentIsland.bigBoat.SetActive(true);
             currentIsland.boat.SetActive(false);
         }

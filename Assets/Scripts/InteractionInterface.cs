@@ -23,7 +23,11 @@ public class InteractionInterface : MonoBehaviour
     [SerializeField] private TextMeshProUGUI warStrengthAmount;
 
     [SerializeField] private GameObject shopUI;
+
     [SerializeField] private GameObject claimLandUI;
+    [SerializeField] private TextMeshProUGUI claimPriceAmount;
+
+    private int claimPrice = 1;
 
     void Awake()
     {
@@ -54,7 +58,11 @@ public class InteractionInterface : MonoBehaviour
         {
             case 0:
                 harvestUI.SetActive(true);
-                shopUI.SetActive(true);
+                if (!currentIsland.bigBoat.activeSelf || !currentIsland.upgrade.activeSelf)
+                {
+                    shopUI.SetActive(true);
+                }
+
                 if (island.resourceType != -1)
                 {
                     harvestImg.sprite = resourceSprites[island.resourceType];
@@ -126,7 +134,7 @@ public class InteractionInterface : MonoBehaviour
 
     public void Shop()
     {
-        if (currentIsland == null)
+        if (currentIsland == null || !shopUI.activeSelf)
             return;
 
         ShopManager.Instance.OpenStorefront(currentIsland);
@@ -134,10 +142,13 @@ public class InteractionInterface : MonoBehaviour
 
     public void ClaimLand()
     {
-        if (currentIsland == null || GameManager.Instance.royalDeedsAmount < 1)
+        if (currentIsland == null || GameManager.Instance.royalDeedsAmount < claimPrice)
             return;
 
-        GameManager.Instance.AddResource(3, -1);
+        GameManager.Instance.AddResource(3, -claimPrice);
+
+        claimPrice++;
+        claimPriceAmount.text = claimPrice.ToString();
 
         currentIsland.m_isMyLand = true;
         currentIsland.interfaceIndex = 0;

@@ -1269,9 +1269,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4095409848433334414, guid: 3161cf1de7b1f53458eb49c1ebfb87de,
         type: 3}
+      propertyPath: foodAmount
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4095409848433334414, guid: 3161cf1de7b1f53458eb49c1ebfb87de,
+        type: 3}
       propertyPath: militaryTxt
       value: 
       objectReference: {fileID: 957573198}
+    - target: {fileID: 4095409848433334414, guid: 3161cf1de7b1f53458eb49c1ebfb87de,
+        type: 3}
+      propertyPath: stoneAmount
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4095409848433334414, guid: 3161cf1de7b1f53458eb49c1ebfb87de,
+        type: 3}
+      propertyPath: lumberAmount
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 4095409848433334414, guid: 3161cf1de7b1f53458eb49c1ebfb87de,
         type: 3}
       propertyPath: royalDeedsTxt
@@ -1280,12 +1295,12 @@ PrefabInstance:
     - target: {fileID: 4095409848433334414, guid: 3161cf1de7b1f53458eb49c1ebfb87de,
         type: 3}
       propertyPath: militaryStrength
-      value: 0
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 4095409848433334414, guid: 3161cf1de7b1f53458eb49c1ebfb87de,
         type: 3}
       propertyPath: royalDeedsAmount
-      value: 0
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 4095409848433334414, guid: 3161cf1de7b1f53458eb49c1ebfb87de,
         type: 3}
@@ -1658,6 +1673,7 @@ MonoBehaviour:
   warStrengthAmount: {fileID: 554930580}
   shopUI: {fileID: 667834548}
   claimLandUI: {fileID: 1321004497}
+  claimPriceAmount: {fileID: 540505400}
 --- !u!1 &210292958
 GameObject:
   m_ObjectHideFlags: 0
@@ -3787,7 +3803,7 @@ GameObject:
   - component: {fileID: 540505401}
   - component: {fileID: 540505400}
   m_Layer: 5
-  m_Name: Text (TMP) (1)
+  m_Name: PriceTxt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11429,6 +11445,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 3248902474695950871, guid: da8fdfd04a1acec4fadb34ecfe50ab89,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3610683072865998876, guid: da8fdfd04a1acec4fadb34ecfe50ab89,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -11598,6 +11619,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 9098005892206620491, guid: da8fdfd04a1acec4fadb34ecfe50ab89,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -13408,7 +13434,7 @@ GameObject:
   - component: {fileID: 1884279936}
   - component: {fileID: 1884279937}
   m_Layer: 5
-  m_Name: Shop
+  m_Name: ShopStorefront
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -1,12 +1,21 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(JokeManager))]
 public class AnswerJoke : MonoBehaviour
 {
+    [SerializeField] private TextMeshProUGUI amountDoneTxt;
+    [SerializeField] private TextMeshProUGUI timerTxt;
+    [SerializeField] private Image timerImg;
+    [Space(8)]
     [SerializeField] private Image buttonImg;
     [SerializeField] private Sprite[] directionSpr;
+
+    private bool hasAnswered = false;
+
+    private int amountCompleted = 1;
 
     private JokeManager jokeManager;
     private Controls _input;
@@ -26,6 +35,9 @@ public class AnswerJoke : MonoBehaviour
 
     public void Answer(int index)
     {
+        if (hasAnswered)
+            return;
+
         buttonImg.sprite = directionSpr[index];
         jokeManager.RevealAnswer(index);
 
@@ -34,8 +46,30 @@ public class AnswerJoke : MonoBehaviour
 
     private IEnumerator CheckAnswer()
     {
-        yield return new WaitForSeconds(3);
+        hasAnswered = true;
+
+        timerImg.gameObject.SetActive(true);
+
+        float timer = 0;
+        timerImg.fillAmount = 0;
+
+        do
+        {
+            yield return new WaitForSeconds(0.01f);
+            timer += 0.01f;
+            timerImg.fillAmount = (timer/3);
+            timerTxt.text = Mathf.RoundToInt(Mathf.Abs(timer-3)).ToString();
+        }
+        while (timerImg.fillAmount <= 0.98f);
+
+        timerImg.gameObject.SetActive(false);
+
+        amountCompleted++;
+        amountDoneTxt.text = amountCompleted+"/3";
+
         jokeManager.ChangeJoke();
         buttonImg.sprite = directionSpr[4];
+
+        hasAnswered = false;
     }
 }
