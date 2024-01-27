@@ -132,6 +132,7 @@ public class InteractionInterface : MonoBehaviour
         currentIsland.m_isMyLand = true;
         currentIsland.interfaceIndex = 0;
         currentIsland.boat.SetActive(true);
+        currentIsland.m_defense = 1;
 
         if (currentIsland.m_isMyLand)
             currentIsland.boat.GetComponent<SetTeamColor>().Change(team.materials[0]);

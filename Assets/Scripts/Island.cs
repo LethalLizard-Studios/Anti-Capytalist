@@ -17,13 +17,12 @@ public class Island : MonoBehaviour
     public int resourceType = -1;
     public int resourceAmount = 0;
     public int resourceMultiplier = 1;
+
     [Space(8)]
     public GameObject boat;
     public GameObject bigBoat;
     public GameObject upgrade;
     public GameObject disableUpgrade;
-
-    private bool isHighlighted = false;
 
     private void Start()
     {
