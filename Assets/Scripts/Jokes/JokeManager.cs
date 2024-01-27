@@ -8,6 +8,12 @@ public class JokeManager : MonoBehaviour
     [Space(8)]
     [SerializeField] private TextMeshProUGUI dialogue;
     [SerializeField] private TextMeshProUGUI[] answers = new TextMeshProUGUI[4];
+    [Space(8)]
+    [SerializeField] private GameObject OutOfJokesMsg;
+
+    private int correctAnswer = 0;
+
+    public int GetCorrectAnswer() { return correctAnswer; }
 
     private void Start()
     {
@@ -75,8 +81,11 @@ public class JokeManager : MonoBehaviour
         ChangeJoke();
     }
 
-    private void ChangeJoke()
+    public void ChangeJoke()
     {
+        if (sortedKnockJokes.Count <= 0)
+            OutOfJokes();
+
         KnockKnockJoke joke = sortedKnockJokes.Pop();
 
         dialogue.text = "Knock, knock\n" +
@@ -84,22 +93,41 @@ public class JokeManager : MonoBehaviour
             joke.joke +
             " \n" + joke.joke + " who?"; ;
 
-        int answerSpot = Random.Range(0, 4);
-        answers[answerSpot].text = joke.correctAnswer;
-        Debug.Log(joke.correctAnswer+", " + joke.wrongAnswers[0]);
+        correctAnswer = Random.Range(0, 4);
+        answers[correctAnswer].text = joke.correctAnswer;
+
         int wrongJoke = 0;
 
         for (int i = 0; i < answers.Length; i++)
         {
+            answers[i].color = Color.white;
+
             if (wrongJoke > joke.wrongAmount)
                 break;
 
-            if (i != answerSpot)
+            if (i != correctAnswer)
             {
                 Debug.Log(i);
                 answers[i].text = joke.wrongAnswers[wrongJoke];
                 wrongJoke++;
             }
         }
+    }
+
+    public void RevealAnswer(int guessIndex)
+    {
+        if (guessIndex == correctAnswer)
+        {
+            GameManager.Instance.royalDeedsAmount++;
+            answers[correctAnswer].color = Color.green;
+        }
+        else
+            answers[correctAnswer].color = Color.red;
+    }
+
+    public void OutOfJokes()
+    {
+        OutOfJokesMsg.SetActive(true);
+        gameObject.SetActive(false);
     }
 }
