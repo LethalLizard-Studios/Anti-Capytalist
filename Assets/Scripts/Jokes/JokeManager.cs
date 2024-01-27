@@ -118,7 +118,7 @@ public class JokeManager : MonoBehaviour
     {
         if (guessIndex == correctAnswer)
         {
-            GameManager.Instance.royalDeedsAmount++;
+            GameManager.Instance.AddResource(3, 1);
             answers[correctAnswer].color = Color.green;
         }
         else

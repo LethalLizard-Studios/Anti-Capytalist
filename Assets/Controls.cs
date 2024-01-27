@@ -116,6 +116,33 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Left Click"",
+                    ""type"": ""Button"",
+                    ""id"": ""2c34ce24-3901-424a-8ed4-c038613b4936"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Down Dpad"",
+                    ""type"": ""Button"",
+                    ""id"": ""e8c397c1-85f3-40f0-ab1e-3ee1b1e31745"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Left Dpad"",
+                    ""type"": ""Button"",
+                    ""id"": ""27e88602-9e4b-46b7-a8e2-8448b75de0f0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -305,6 +332,39 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""Answer 4"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b8e5394b-1ef6-4d5e-8d9e-b0e001ff0983"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Left Click"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c7707c2d-96d7-431e-b8ac-1a0965e58e4f"",
+                    ""path"": ""<Gamepad>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Down Dpad"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8271456f-b197-4ab2-a872-48d87cd7f665"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Left Dpad"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -323,6 +383,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Player_Answer2 = m_Player.FindAction("Answer 2", throwIfNotFound: true);
         m_Player_Answer3 = m_Player.FindAction("Answer 3", throwIfNotFound: true);
         m_Player_Answer4 = m_Player.FindAction("Answer 4", throwIfNotFound: true);
+        m_Player_LeftClick = m_Player.FindAction("Left Click", throwIfNotFound: true);
+        m_Player_DownDpad = m_Player.FindAction("Down Dpad", throwIfNotFound: true);
+        m_Player_LeftDpad = m_Player.FindAction("Left Dpad", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -394,6 +457,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Answer2;
     private readonly InputAction m_Player_Answer3;
     private readonly InputAction m_Player_Answer4;
+    private readonly InputAction m_Player_LeftClick;
+    private readonly InputAction m_Player_DownDpad;
+    private readonly InputAction m_Player_LeftDpad;
     public struct PlayerActions
     {
         private @Controls m_Wrapper;
@@ -408,6 +474,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @Answer2 => m_Wrapper.m_Player_Answer2;
         public InputAction @Answer3 => m_Wrapper.m_Player_Answer3;
         public InputAction @Answer4 => m_Wrapper.m_Player_Answer4;
+        public InputAction @LeftClick => m_Wrapper.m_Player_LeftClick;
+        public InputAction @DownDpad => m_Wrapper.m_Player_DownDpad;
+        public InputAction @LeftDpad => m_Wrapper.m_Player_LeftDpad;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -447,6 +516,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Answer4.started += instance.OnAnswer4;
             @Answer4.performed += instance.OnAnswer4;
             @Answer4.canceled += instance.OnAnswer4;
+            @LeftClick.started += instance.OnLeftClick;
+            @LeftClick.performed += instance.OnLeftClick;
+            @LeftClick.canceled += instance.OnLeftClick;
+            @DownDpad.started += instance.OnDownDpad;
+            @DownDpad.performed += instance.OnDownDpad;
+            @DownDpad.canceled += instance.OnDownDpad;
+            @LeftDpad.started += instance.OnLeftDpad;
+            @LeftDpad.performed += instance.OnLeftDpad;
+            @LeftDpad.canceled += instance.OnLeftDpad;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -481,6 +559,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Answer4.started -= instance.OnAnswer4;
             @Answer4.performed -= instance.OnAnswer4;
             @Answer4.canceled -= instance.OnAnswer4;
+            @LeftClick.started -= instance.OnLeftClick;
+            @LeftClick.performed -= instance.OnLeftClick;
+            @LeftClick.canceled -= instance.OnLeftClick;
+            @DownDpad.started -= instance.OnDownDpad;
+            @DownDpad.performed -= instance.OnDownDpad;
+            @DownDpad.canceled -= instance.OnDownDpad;
+            @LeftDpad.started -= instance.OnLeftDpad;
+            @LeftDpad.performed -= instance.OnLeftDpad;
+            @LeftDpad.canceled -= instance.OnLeftDpad;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -510,5 +597,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnAnswer2(InputAction.CallbackContext context);
         void OnAnswer3(InputAction.CallbackContext context);
         void OnAnswer4(InputAction.CallbackContext context);
+        void OnLeftClick(InputAction.CallbackContext context);
+        void OnDownDpad(InputAction.CallbackContext context);
+        void OnLeftDpad(InputAction.CallbackContext context);
     }
 }
