@@ -17,6 +17,7 @@ public class InteractionInterface : MonoBehaviour
     [SerializeField] private Camera openWorldCam;
     [SerializeField] private GameObject openWorldUI;
     [SerializeField] private Image kingCharacterImg;
+    [SerializeField] private MeshRenderer kingsKeepColor;
 
     [SerializeField] private GameObject harvestUI;
     [SerializeField] private Image harvestImg;
@@ -145,6 +146,7 @@ public class InteractionInterface : MonoBehaviour
         GameManager.Instance.PlayClickSFX();
 
         kingCharacterImg.sprite = team.kingCharacterSprites[currentIsland.m_enemyLand];
+        kingsKeepColor.material = team.materials[currentIsland.m_enemyLand + 1];
 
         performanceScene.SetActive(true);
         openWorldCam.enabled = false;

@@ -1477,6 +1477,7 @@ MonoBehaviour:
   openWorldCam: {fileID: 286107492}
   openWorldUI: {fileID: 2078521603}
   kingCharacterImg: {fileID: 259050394}
+  kingsKeepColor: {fileID: 1964726933}
   harvestUI: {fileID: 1985680277}
   harvestImg: {fileID: 1537953680}
   resourceSprites:
@@ -1961,7 +1962,6 @@ GameObject:
   m_Component:
   - component: {fileID: 286107493}
   - component: {fileID: 286107492}
-  - component: {fileID: 286107491}
   - component: {fileID: 286107490}
   - component: {fileID: 286107494}
   m_Layer: 0
@@ -2015,14 +2015,6 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
---- !u!81 &286107491
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 286107489}
-  m_Enabled: 1
 --- !u!20 &286107492
 Camera:
   m_ObjectHideFlags: 0
@@ -14496,6 +14488,11 @@ PrefabInstance:
       propertyPath: m_Color.a
       value: 0.8627451
       objectReference: {fileID: 0}
+    - target: {fileID: 6380330201203481914, guid: 05eeb84641105964abaa4fffca0fbff4,
+        type: 3}
+      propertyPath: m_Name
+      value: TeamColored
+      objectReference: {fileID: 0}
     - target: {fileID: 7072790107192148840, guid: 05eeb84641105964abaa4fffca0fbff4,
         type: 3}
       propertyPath: laughTracks.Array.size
@@ -14646,6 +14643,12 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!23 &1964726933 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 829410028268542984, guid: 05eeb84641105964abaa4fffca0fbff4,
+    type: 3}
+  m_PrefabInstance: {fileID: 1964726929}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1984142438 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 623f73c03858ff148be36cf02fcc8eea,
