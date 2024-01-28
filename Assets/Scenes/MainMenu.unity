@@ -2899,7 +2899,7 @@ PrefabInstance:
     - target: {fileID: 4095409848433334414, guid: 3161cf1de7b1f53458eb49c1ebfb87de,
         type: 3}
       propertyPath: botDefense.Array.data[1]
-      value: 14
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 4095409848433334414, guid: 3161cf1de7b1f53458eb49c1ebfb87de,
         type: 3}

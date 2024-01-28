@@ -32,6 +32,21 @@ public class ShopManager : MonoBehaviour
         coinSource = GetComponent<AudioSource>();
     }
 
+    public void OpenTrader(Island island)
+    {
+        if (island == null)
+            return;
+
+        currentIsland = island;
+
+        GameObject window = transform.GetChild(1).gameObject;
+
+        window.SetActive(!window.activeSelf);
+
+        if (!window.activeSelf)
+            return;
+    }
+
     public void OpenStorefront(Island island)
     {
         if (island == null)
@@ -57,7 +72,14 @@ public class ShopManager : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Performed)
         {
-            BuyLandUpgrade();
+            if (IsActive())
+            {
+                BuyLandUpgrade();
+            }
+            else if (IsTradeActive())
+            {
+                TradeStone();
+            }
         }
     }
 
@@ -65,7 +87,52 @@ public class ShopManager : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Performed)
         {
-            BuyBoatUpgrade();
+            if (IsActive())
+            {
+                BuyBoatUpgrade();
+            }
+            else if (IsTradeActive())
+            {
+                TradeFood();
+            }
+        }
+    }
+
+    public void TradeStone()
+    {
+        if (currentIsland == null || !IsTradeActive())
+            return;
+
+        if (GameManager.Instance.stoneAmount >= 3)
+        {
+            coinSource.pitch = Random.Range(0.95f, 1.05f);
+            coinSource.Play();
+
+            GameManager.Instance.AddResource(1, -3);
+            GameManager.Instance.AddResource(0, 1);
+        }
+        else
+        {
+            GameManager.Instance.DenyClickSFX();
+        }
+    }
+
+    public void TradeFood()
+    {
+        if (currentIsland == null || !IsTradeActive())
+            return;
+
+        if (GameManager.Instance.foodAmount >= 3)
+        {
+            coinSource.pitch = Random.Range(0.95f, 1.05f);
+            coinSource.Play();
+
+            GameManager.Instance.AddResource(2, -3);
+            GameManager.Instance.AddResource(0, 1);
+        }
+        else
+        {
+            GameManager.Instance.DenyClickSFX();
         }
     }
 
@@ -73,8 +140,6 @@ public class ShopManager : MonoBehaviour
     {
         if (currentIsland == null || !landUpgrade.activeSelf || currentIsland.upgrade == null || !IsActive())
             return;
-
-        GameManager.Instance.PlayClickSFX();
 
         if (GameManager.Instance.lumberAmount >= 2 && GameManager.Instance.foodAmount >= 2)
         {
@@ -103,8 +168,6 @@ public class ShopManager : MonoBehaviour
         if (currentIsland == null || !boatUpgrade.activeSelf || currentIsland.bigBoat == null || !IsActive())
             return;
 
-        GameManager.Instance.PlayClickSFX();
-
         if (GameManager.Instance.lumberAmount >= 3 && GameManager.Instance.stoneAmount >= 3)
         {
             coinSource.pitch = Random.Range(0.95f, 1.05f);
@@ -130,10 +193,16 @@ public class ShopManager : MonoBehaviour
     public void CloseStorefront()
     {
         transform.GetChild(0).gameObject.SetActive(false);
+        transform.GetChild(1).gameObject.SetActive(false);
     }
 
     private bool IsActive()
     {
         return transform.GetChild(0).gameObject.activeSelf;
+    }
+
+    private bool IsTradeActive()
+    {
+        return transform.GetChild(1).gameObject.activeSelf;
     }
 }

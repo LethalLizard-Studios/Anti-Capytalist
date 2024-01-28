@@ -133,6 +133,8 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(COLLECT_TIME);
 
+        Debug.Log(isInGame);
+
         if (isInGame)
         {
             foreach (Island island in collectIslands)

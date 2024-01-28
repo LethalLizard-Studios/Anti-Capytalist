@@ -32,7 +32,14 @@ public class InteractionInterface : MonoBehaviour
     [SerializeField] private GameObject claimLandUI;
     [SerializeField] private TextMeshProUGUI claimPriceAmount;
 
+    [SerializeField] private GameObject tradeUI;
+
     private int claimPrice = 1;
+
+    public void Start()
+    {
+        GameManager.Instance.isInGame = true;
+    }
 
     void Awake()
     {
@@ -55,6 +62,7 @@ public class InteractionInterface : MonoBehaviour
         performUI.SetActive(false);
         shopUI.SetActive(false);
         claimLandUI.SetActive(false);
+        tradeUI.SetActive(false);
 
         if (island.interfaceIndex == -1)
             return;
@@ -81,6 +89,9 @@ public class InteractionInterface : MonoBehaviour
                 break;
             case 2:
                 claimLandUI.SetActive(true);
+                break;
+            case 3:
+                tradeUI.SetActive(true);
                 break;
         }
     }
@@ -134,6 +145,9 @@ public class InteractionInterface : MonoBehaviour
                 case 2:
                     ClaimLand();
                     break;
+                case 3:
+                    Trade();
+                    break;
             }
         }
     }
@@ -168,6 +182,16 @@ public class InteractionInterface : MonoBehaviour
         GameManager.Instance.PlayClickSFX();
 
         ShopManager.Instance.OpenStorefront(currentIsland);
+    }
+
+    public void Trade()
+    {
+        if (currentIsland == null || !tradeUI.activeSelf || performanceScene.activeSelf)
+            return;
+
+        GameManager.Instance.PlayClickSFX();
+
+        ShopManager.Instance.OpenTrader(currentIsland);
     }
 
     public void ClaimLand()

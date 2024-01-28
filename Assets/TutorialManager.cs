@@ -12,11 +12,6 @@ public class TutorialManager : MonoBehaviour
 
     private int currentPage = 0;
 
-    public void Start()
-    {
-        GameManager.Instance.isInGame = false;
-    }
-
     public void ButtonB(InputAction.CallbackContext context)
     {
         if (context.phase == InputActionPhase.Performed)
@@ -28,7 +23,6 @@ public class TutorialManager : MonoBehaviour
 
     public void NextPage()
     {
-        Debug.Log("NEXT!");
         GameManager.Instance.PlayClickSFX();
 
         currentPage++;
@@ -40,6 +34,7 @@ public class TutorialManager : MonoBehaviour
 
         if (currentPage >= pages.Length)
         {
+            GameManager.Instance.isInGame = true;
             transform.GetChild(0).gameObject.SetActive(false);
             return;
         }
