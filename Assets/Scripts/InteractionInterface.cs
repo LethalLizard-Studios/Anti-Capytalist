@@ -170,8 +170,14 @@ public class InteractionInterface : MonoBehaviour
 
     public void ClaimLand()
     {
-        if (currentIsland == null || GameManager.Instance.royalDeedsAmount < claimPrice || performanceScene.activeSelf)
+        if (currentIsland == null || performanceScene.activeSelf)
             return;
+
+        if (GameManager.Instance.royalDeedsAmount < claimPrice)
+        {
+            GameManager.Instance.DenyClickSFX();
+            return;
+        }
 
         GameManager.Instance.PlayClickSFX();
 
@@ -211,6 +217,10 @@ public class InteractionInterface : MonoBehaviour
 
                 VictoryConditions.Instance.DefeatedKingdom();
             }
+        }
+        else
+        {
+            GameManager.Instance.DenyClickSFX();
         }
     }
 

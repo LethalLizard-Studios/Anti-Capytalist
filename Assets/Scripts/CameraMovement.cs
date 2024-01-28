@@ -11,6 +11,7 @@ public class CameraMovement : MonoBehaviour
     [SerializeField] private CharacterMovement character;
     [SerializeField] private TeamController teams;
     [SerializeField] private GameObject tellJokeUI;
+    [SerializeField] private GameObject tutorialUI;
 
     private AudioSource moveSound;
 
@@ -53,7 +54,7 @@ public class CameraMovement : MonoBehaviour
 
     private void Move(Island island)
     {
-        if (tellJokeUI.activeSelf)
+        if (tellJokeUI.activeSelf || tutorialUI.activeSelf)
             return;
 
         moveSound.pitch = Random.Range(1.05f, 1.2f);
@@ -70,7 +71,7 @@ public class CameraMovement : MonoBehaviour
 
     public void Select(Island island)
     {
-        if (tellJokeUI.activeSelf)
+        if (tellJokeUI.activeSelf || tutorialUI.activeSelf)
             return;
 
         float dist = Vector3.Distance(transform.position, currentIsland.transform.position);
@@ -88,7 +89,7 @@ public class CameraMovement : MonoBehaviour
 
     public void ClickMove(InputAction.CallbackContext context)
     {
-        if (tellJokeUI.activeSelf)
+        if (tellJokeUI.activeSelf || tutorialUI.activeSelf)
             return;
 
         if (context.phase == InputActionPhase.Started)

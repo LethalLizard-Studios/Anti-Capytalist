@@ -12,6 +12,19 @@ public class ControlsSelection : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+
+        if (!GameManager.Instance.controller)
+        {
+            foreach (GameObject control in controlsPreview)
+                control.SetActive(false);
+            text.text = "Using\nMouse & Keyboard";
+        }
+        else
+        {
+            foreach (GameObject control in controlsPreview)
+                control.SetActive(true);
+            text.text = "Using\nController";
+        }
     }
 
     public void ToggleControls()

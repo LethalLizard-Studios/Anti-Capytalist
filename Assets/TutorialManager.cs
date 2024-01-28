@@ -28,6 +28,7 @@ public class TutorialManager : MonoBehaviour
 
     public void NextPage()
     {
+        Debug.Log("NEXT!");
         GameManager.Instance.PlayClickSFX();
 
         currentPage++;

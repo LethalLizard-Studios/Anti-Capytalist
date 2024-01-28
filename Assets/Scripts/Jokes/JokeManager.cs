@@ -142,6 +142,8 @@ public class JokeManager : MonoBehaviour
         }
         else
         {
+            GameManager.Instance.DenyClickSFX();
+
             answers[correctAnswer].color = Color.red;
             answersKeyboard[correctAnswer].color = Color.red;
         }

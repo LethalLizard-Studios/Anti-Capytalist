@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public int[] botDefense = new int[2];
 
     [SerializeField] private AudioSource clickSource;
+    [SerializeField] private AudioSource deniedSource;
 
     public int lumberAmount = 0;
     [SerializeField] private TextMeshProUGUI lumberTxt;
@@ -74,6 +75,12 @@ public class GameManager : MonoBehaviour
     {
         clickSource.pitch = Random.Range(0.92f, 1.08f);
         clickSource.Play();
+    }
+
+    public void DenyClickSFX()
+    {
+        deniedSource.pitch = Random.Range(0.92f, 1.08f);
+        deniedSource.Play();
     }
 
     public void Reset()

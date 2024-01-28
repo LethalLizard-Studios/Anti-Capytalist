@@ -92,6 +92,10 @@ public class ShopManager : MonoBehaviour
             if (currentIsland.disableUpgrade != null)
                 currentIsland.disableUpgrade.SetActive(false);
         }
+        else
+        {
+            GameManager.Instance.DenyClickSFX();
+        }
     }
 
     public void BuyBoatUpgrade()
@@ -116,6 +120,10 @@ public class ShopManager : MonoBehaviour
             currentIsland.m_defense += 2;
             currentIsland.bigBoat.SetActive(true);
             currentIsland.boat.SetActive(false);
+        }
+        else
+        {
+            GameManager.Instance.DenyClickSFX();
         }
     }
 
