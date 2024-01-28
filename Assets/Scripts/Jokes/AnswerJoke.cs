@@ -35,6 +35,7 @@ public class AnswerJoke : MonoBehaviour
 
     private void OnEnable()
     {
+        GameManager.Instance.SwitchMusic();
         amountCompleted = 1;
         amountDoneTxt.text = amountCompleted + "/3";
     }
@@ -43,6 +44,8 @@ public class AnswerJoke : MonoBehaviour
     {
         if (hasAnswered || !this.isActiveAndEnabled)
             return;
+
+        GameManager.Instance.PlayClickSFX();
 
         if (jokeManager.gameObject.activeSelf && jokeManager != null)
         {
@@ -85,6 +88,8 @@ public class AnswerJoke : MonoBehaviour
 
         if (amountCompleted >= 4)
         {
+            GameManager.Instance.SwitchMusic();
+
             InteractionInterface.Instance.FinishPerformance();
             yield break;
         }

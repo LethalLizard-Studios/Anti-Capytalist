@@ -11,6 +11,8 @@ public class ShopManager : MonoBehaviour
     [SerializeField] private Image resourceImg;
     [SerializeField] private Sprite[] resources;
 
+    private AudioSource coinSource;
+
     private Island currentIsland;
 
     void Awake()
@@ -23,6 +25,11 @@ public class ShopManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    private void Start()
+    {
+        coinSource = GetComponent<AudioSource>();
     }
 
     public void OpenStorefront(Island island)
@@ -67,8 +74,13 @@ public class ShopManager : MonoBehaviour
         if (currentIsland == null || !landUpgrade.activeSelf || currentIsland.upgrade == null || !IsActive())
             return;
 
+        GameManager.Instance.PlayClickSFX();
+
         if (GameManager.Instance.lumberAmount >= 2 && GameManager.Instance.foodAmount >= 2)
         {
+            coinSource.pitch = Random.Range(0.95f, 1.05f);
+            coinSource.Play();
+
             landUpgrade.SetActive(false);
 
             GameManager.Instance.AddResource(0, -2);
@@ -87,8 +99,13 @@ public class ShopManager : MonoBehaviour
         if (currentIsland == null || !boatUpgrade.activeSelf || currentIsland.bigBoat == null || !IsActive())
             return;
 
+        GameManager.Instance.PlayClickSFX();
+
         if (GameManager.Instance.lumberAmount >= 3 && GameManager.Instance.stoneAmount >= 3)
         {
+            coinSource.pitch = Random.Range(0.95f, 1.05f);
+            coinSource.Play();
+
             boatUpgrade.SetActive(false);
 
             GameManager.Instance.AddResource(0, -3);

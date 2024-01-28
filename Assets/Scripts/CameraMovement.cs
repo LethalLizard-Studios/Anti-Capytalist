@@ -12,6 +12,8 @@ public class CameraMovement : MonoBehaviour
     [SerializeField] private TeamController teams;
     [SerializeField] private GameObject tellJokeUI;
 
+    private AudioSource moveSound;
+
     private const int ROTATE_SPEED = 50;
     private int rotateDir = 0;
 
@@ -19,8 +21,7 @@ public class CameraMovement : MonoBehaviour
 
     private void Start()
     {
-        Cursor.lockState = CursorLockMode.Confined;
-        Cursor.visible = true;
+        moveSound = GetComponent<AudioSource>();
 
         Move(currentIsland);
         InteractionInterface.Instance.Show(currentIsland);
@@ -54,6 +55,9 @@ public class CameraMovement : MonoBehaviour
     {
         if (tellJokeUI.activeSelf)
             return;
+
+        moveSound.pitch = Random.Range(1.05f, 1.2f);
+        moveSound.Play();
 
         Vector3 pos = island.transform.position;
 

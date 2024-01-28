@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class JokeManager : MonoBehaviour
 {
+    [SerializeField] private AudioClip[] laughTracks;
+    private AudioSource laughSource;
+    private int laughIndex = 0;
+
     [SerializeField] private TextAsset knockKnockJokes;
     [Space(8)]
     [SerializeField] private TextMeshProUGUI dialogue;
@@ -18,10 +22,13 @@ public class JokeManager : MonoBehaviour
 
     private void Start()
     {
+        laughSource = GetComponent<AudioSource>();
+
         ParseTextAsset(knockKnockJokes);
     }
 
-    private Stack<KnockKnockJoke> sortedKnockJokes = new Stack<KnockKnockJoke>();
+    private List<KnockKnockJoke> sortedKnockJokes = new List<KnockKnockJoke>();
+    private int currentJoke = 0;
 
     private void ParseTextAsset(TextAsset textAsset)
     {
@@ -46,9 +53,7 @@ public class JokeManager : MonoBehaviour
             {
                 //Make sure to only push if joke exists!S
                 if (!string.IsNullOrEmpty(tempJoke.joke))
-                    sortedKnockJokes.Push(tempJoke);
-
-                Debug.Log("R");
+                    sortedKnockJokes.Add(tempJoke);
 
                 tempJoke = new KnockKnockJoke();
                 tempJoke.wrongAnswers = new string[4];
@@ -63,15 +68,12 @@ public class JokeManager : MonoBehaviour
             {
                 case 'S':
                     tempJoke.joke = str.Remove(0, 2).Replace("\r", "");
-                    Debug.Log(tempJoke.joke);
                     break;
                 case 'C':
                     tempJoke.correctAnswer = str.Remove(0,2).Replace("\r", "");
-                    Debug.Log(tempJoke.correctAnswer);
                     break;
                 case '-':
                     tempJoke.wrongAnswers[tempJoke.wrongAmount] = str.Remove(0, 2).Replace("\r", "");
-                    Debug.Log(tempJoke.wrongAnswers[tempJoke.wrongAmount]);
                     tempJoke.wrongAmount++;
                     break;
             }
@@ -87,7 +89,7 @@ public class JokeManager : MonoBehaviour
         if (sortedKnockJokes.Count <= 0)
             OutOfJokes();
 
-        KnockKnockJoke joke = sortedKnockJokes.Pop();
+        KnockKnockJoke joke = sortedKnockJokes[currentJoke];
 
         dialogue.text = "Knock, knock\n" +
             "Who's there?\n" +
@@ -115,6 +117,11 @@ public class JokeManager : MonoBehaviour
                 wrongJoke++;
             }
         }
+
+        currentJoke++;
+
+        if (currentJoke >= sortedKnockJokes.Count)
+            currentJoke = 0;
     }
 
     public void RevealAnswer(int guessIndex)
@@ -124,6 +131,14 @@ public class JokeManager : MonoBehaviour
             GameManager.Instance.AddResource(3, 1);
             answers[correctAnswer].color = Color.green;
             answersKeyboard[correctAnswer].color = Color.green;
+
+            laughSource.clip = laughTracks[laughIndex];
+            laughSource.Play();
+
+            if (laughIndex >= laughTracks.Length-1)
+                laughIndex = 0;
+            else
+                laughIndex++;
         }
         else
         {

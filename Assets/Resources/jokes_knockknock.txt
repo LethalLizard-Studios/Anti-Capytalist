@@ -5,57 +5,57 @@ C You're Welcome
 - Tank POO!
 S Cow says
 C No, cow says moooo!
-- z
-- z
-- z
+- No, cow says meeoow!
+- mooooo!
+- No, owl says who.
 S Says
 C Says me!
-- z
-- z
-- z
+- It's me says, let me in :(
+- Says no one.
+- Says you!
 S Honey bee
-C Honey bee a dear and get that for me please!
-- z
-- z
-- z
+C Honey bee a dear and get that please!
+- Bees love honey
+- BUUUZZZZZZZZ!!!!!
+- Honey bee me!
 S A little old lady
 C Hey, you can yodel!
-- z
-- z
-- z
+- The one with the cane.
+- What?
+- Wow that was cool!
 S Snow
 C Snow use. The joke is over
-- z
-- z
-- z
+- Frosty the Snowman
+- Snowball you
+- Snow is cold :(
 S Hawaii
 C I'm good. Hawaii you?
-- z
-- z
-- z
+- Hawaii Five-O!
+- Hawaii can you hear me now?
+- I'm good. How are you?
 S Woo
 C Glad you're excited, too!
-- z
-- z
-- z
+- Yipppeee!
+- Calm down :(
+- Why are you so calm.
 S Orange
 C Orange you going to let me in?
-- z
-- z
-- z
+- Annoying Orange!
+- Oranges are orange
+- I love oranges!
 S Who
 C I didn't know you were an owl!
-- z
-- z
-- z
+- Who are you?
+- I didn't know you were a cow!
+- Who
 S Anita
 C Let me in! Anita borrow something
-- z
-- z
-- z
+- Anita max wynn
+- Anita another joke
+- I need to borrow something
 S Leaf
 C Leaf me alone!
-- wgsg
-- thfjyg
-- afafa
+- Tree
+- I like vegetation
+- I'm just a leaf.
 E

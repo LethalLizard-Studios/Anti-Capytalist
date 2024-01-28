@@ -142,6 +142,8 @@ public class InteractionInterface : MonoBehaviour
         if (currentIsland == null)
             return;
 
+        GameManager.Instance.PlayClickSFX();
+
         kingCharacterImg.sprite = team.kingCharacterSprites[currentIsland.m_enemyLand];
 
         performanceScene.SetActive(true);
@@ -161,6 +163,8 @@ public class InteractionInterface : MonoBehaviour
         if (currentIsland == null || !shopUI.activeSelf || performanceScene.activeSelf)
             return;
 
+        GameManager.Instance.PlayClickSFX();
+
         ShopManager.Instance.OpenStorefront(currentIsland);
     }
 
@@ -168,6 +172,8 @@ public class InteractionInterface : MonoBehaviour
     {
         if (currentIsland == null || GameManager.Instance.royalDeedsAmount < claimPrice || performanceScene.activeSelf)
             return;
+
+        GameManager.Instance.PlayClickSFX();
 
         GameManager.Instance.AddResource(3, -claimPrice);
 
@@ -190,6 +196,8 @@ public class InteractionInterface : MonoBehaviour
         if (currentIsland == null || performanceScene.activeSelf)
             return;
 
+        GameManager.Instance.PlayClickSFX();
+
         if (GameManager.Instance.militaryStrength > GameManager.Instance.botDefense[currentIsland.m_enemyLand])
         {
             War war;
@@ -200,6 +208,8 @@ public class InteractionInterface : MonoBehaviour
 
                 currentIsland.Select();
                 Show(currentIsland);
+
+                VictoryConditions.Instance.DefeatedKingdom();
             }
         }
     }
@@ -208,6 +218,8 @@ public class InteractionInterface : MonoBehaviour
     {
         if (currentIsland == null || currentIsland.resourceAmount < 1 || performanceScene.activeSelf)
             return;
+
+        GameManager.Instance.PlayClickSFX();
 
         GameManager.Instance.AddResource(currentIsland.resourceType, currentIsland.resourceAmount);
         currentIsland.resourceAmount = 0;
