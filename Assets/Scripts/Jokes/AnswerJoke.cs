@@ -33,15 +33,26 @@ public class AnswerJoke : MonoBehaviour
         _input.Player.Answer4.performed += obj => Answer(3);
     }
 
+    private void OnEnable()
+    {
+        amountCompleted = 1;
+        amountDoneTxt.text = amountCompleted + "/3";
+    }
+
     public void Answer(int index)
     {
-        if (hasAnswered)
+        if (hasAnswered || !this.isActiveAndEnabled)
             return;
 
-        buttonImg.sprite = directionSpr[index];
-        jokeManager.RevealAnswer(index);
+        if (jokeManager.gameObject.activeSelf && jokeManager != null)
+        {
+            buttonImg.sprite = directionSpr[index];
+            jokeManager.RevealAnswer(index);
 
-        StartCoroutine(CheckAnswer());
+            Debug.Log("Checked");
+
+            StartCoroutine(CheckAnswer());
+        }
     }
 
     private IEnumerator CheckAnswer()
@@ -57,8 +68,8 @@ public class AnswerJoke : MonoBehaviour
         {
             yield return new WaitForSeconds(0.01f);
             timer += 0.01f;
-            timerImg.fillAmount = (timer/3);
-            timerTxt.text = Mathf.RoundToInt(Mathf.Abs(timer-3)).ToString();
+            timerImg.fillAmount = (timer/2);
+            timerTxt.text = Mathf.RoundToInt(Mathf.Abs(timer-2) + 1).ToString();
         }
         while (timerImg.fillAmount <= 0.98f);
 
@@ -67,9 +78,15 @@ public class AnswerJoke : MonoBehaviour
         amountCompleted++;
         amountDoneTxt.text = amountCompleted+"/3";
 
-        jokeManager.ChangeJoke();
+        hasAnswered = false;
         buttonImg.sprite = directionSpr[4];
 
-        hasAnswered = false;
+        jokeManager.ChangeJoke();
+
+        if (amountCompleted >= 4)
+        {
+            InteractionInterface.Instance.FinishPerformance();
+            yield break;
+        }
     }
 }

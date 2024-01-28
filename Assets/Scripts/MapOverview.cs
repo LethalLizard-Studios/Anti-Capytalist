@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 public class MapOverview : MonoBehaviour
 {
     [SerializeField] private Transform cameraObj;
+    [SerializeField] private GameObject TellJokeUI;
 
     [SerializeField] private Vector3 defaultPos = Vector3.zero;
     [SerializeField] private Vector3 defaultRot = Vector3.zero;
@@ -28,6 +29,9 @@ public class MapOverview : MonoBehaviour
     //Seperated so it can be called by buttons aswell as Inputs.
     public void Toggle()
     {
+        if (TellJokeUI.activeSelf)
+            return;
+
         isOnOverview = !isOnOverview;
     }
 

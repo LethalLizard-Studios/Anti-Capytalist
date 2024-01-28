@@ -10,6 +10,7 @@ public class CameraMovement : MonoBehaviour
     [SerializeField] private LayerMask layerMask;
     [SerializeField] private CharacterMovement character;
     [SerializeField] private TeamController teams;
+    [SerializeField] private GameObject tellJokeUI;
 
     private const int ROTATE_SPEED = 50;
     private int rotateDir = 0;
@@ -22,12 +23,16 @@ public class CameraMovement : MonoBehaviour
         Cursor.visible = true;
 
         Move(currentIsland);
+        InteractionInterface.Instance.Show(currentIsland);
         character.JumpToPoint(currentIsland.transform.position);
         m_movePos = transform.position;
     }
 
     public void RotateRight(InputAction.CallbackContext context)
     {
+        if (tellJokeUI.activeSelf)
+            return;
+
         if (context.phase == InputActionPhase.Started)
             rotateDir = -1;
         else if (context.phase == InputActionPhase.Canceled)
@@ -36,6 +41,9 @@ public class CameraMovement : MonoBehaviour
 
     public void RotateLeft(InputAction.CallbackContext context)
     {
+        if (tellJokeUI.activeSelf)
+            return;
+
         if (context.phase == InputActionPhase.Started)
             rotateDir = 1;
         else if (context.phase == InputActionPhase.Canceled)
@@ -44,6 +52,9 @@ public class CameraMovement : MonoBehaviour
 
     private void Move(Island island)
     {
+        if (tellJokeUI.activeSelf)
+            return;
+
         Vector3 pos = island.transform.position;
 
         ShopManager.Instance.CloseStorefront();
@@ -55,6 +66,9 @@ public class CameraMovement : MonoBehaviour
 
     public void Select(Island island)
     {
+        if (tellJokeUI.activeSelf)
+            return;
+
         float dist = Vector3.Distance(transform.position, currentIsland.transform.position);
         if (dist > 15)
             return;
@@ -70,6 +84,9 @@ public class CameraMovement : MonoBehaviour
 
     public void ClickMove(InputAction.CallbackContext context)
     {
+        if (tellJokeUI.activeSelf)
+            return;
+
         if (context.phase == InputActionPhase.Started)
         {
             RaycastHit hit;

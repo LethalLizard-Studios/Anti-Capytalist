@@ -13,6 +13,10 @@ public class InteractionInterface : MonoBehaviour
     [SerializeField] private TeamController team;
 
     [SerializeField] private GameObject performUI;
+    [SerializeField] private GameObject performanceScene;
+    [SerializeField] private Camera openWorldCam;
+    [SerializeField] private GameObject openWorldUI;
+    [SerializeField] private Image kingCharacterImg;
 
     [SerializeField] private GameObject harvestUI;
     [SerializeField] private Image harvestImg;
@@ -80,11 +84,17 @@ public class InteractionInterface : MonoBehaviour
         }
     }
 
+    public void UpdateHarvestAmount()
+    {
+        if (currentIsland != null)
+            resourceAmount.text = currentIsland.resourceAmount.ToString();
+    }
+
     public void LeftDpad(InputAction.CallbackContext context)
     {
         if (context.phase == InputActionPhase.Performed)
         {
-            if (currentIsland == null)
+            if (currentIsland == null || performanceScene.activeSelf)
                 return;
 
             if (currentIsland.interfaceIndex == -1)
@@ -102,11 +112,11 @@ public class InteractionInterface : MonoBehaviour
         }
     }
 
-    public void DownDpad(InputAction.CallbackContext context)
+    public void AButton(InputAction.CallbackContext context)
     {
         if (context.phase == InputActionPhase.Performed)
         {
-            if (currentIsland == null)
+            if (currentIsland == null || performanceScene.activeSelf)
                 return;
 
             if (currentIsland.interfaceIndex == -1)
@@ -129,12 +139,26 @@ public class InteractionInterface : MonoBehaviour
 
     public void Perform()
     {
+        if (currentIsland == null)
+            return;
 
+        kingCharacterImg.sprite = team.kingCharacterSprites[currentIsland.m_enemyLand];
+
+        performanceScene.SetActive(true);
+        openWorldCam.enabled = false;
+        openWorldUI.SetActive(false);
+    }
+
+    public void FinishPerformance()
+    {
+        performanceScene.SetActive(false);
+        openWorldCam.enabled = true;
+        openWorldUI.SetActive(true);
     }
 
     public void Shop()
     {
-        if (currentIsland == null || !shopUI.activeSelf)
+        if (currentIsland == null || !shopUI.activeSelf || performanceScene.activeSelf)
             return;
 
         ShopManager.Instance.OpenStorefront(currentIsland);
@@ -142,7 +166,7 @@ public class InteractionInterface : MonoBehaviour
 
     public void ClaimLand()
     {
-        if (currentIsland == null || GameManager.Instance.royalDeedsAmount < claimPrice)
+        if (currentIsland == null || GameManager.Instance.royalDeedsAmount < claimPrice || performanceScene.activeSelf)
             return;
 
         GameManager.Instance.AddResource(3, -claimPrice);
@@ -163,7 +187,7 @@ public class InteractionInterface : MonoBehaviour
 
     public void Invade()
     {
-        if (currentIsland == null)
+        if (currentIsland == null || performanceScene.activeSelf)
             return;
 
         if (GameManager.Instance.militaryStrength > GameManager.Instance.botDefense[currentIsland.m_enemyLand])
@@ -182,7 +206,7 @@ public class InteractionInterface : MonoBehaviour
 
     public void Harvest()
     {
-        if (currentIsland == null || currentIsland.resourceAmount < 1)
+        if (currentIsland == null || currentIsland.resourceAmount < 1 || performanceScene.activeSelf)
             return;
 
         GameManager.Instance.AddResource(currentIsland.resourceType, currentIsland.resourceAmount);

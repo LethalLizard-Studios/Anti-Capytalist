@@ -11,6 +11,8 @@ public class TeamController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI m_territoryText;
     [SerializeField] private GameObject m_overlay;
 
+    public Sprite[] kingCharacterSprites;
+
     public void UpdateUI(Island island)
     {
         if (island.m_isMyLand)

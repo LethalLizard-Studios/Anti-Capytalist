@@ -8,6 +8,7 @@ public class JokeManager : MonoBehaviour
     [Space(8)]
     [SerializeField] private TextMeshProUGUI dialogue;
     [SerializeField] private TextMeshProUGUI[] answers = new TextMeshProUGUI[4];
+    [SerializeField] private TextMeshProUGUI[] answersKeyboard = new TextMeshProUGUI[4];
     [Space(8)]
     [SerializeField] private GameObject OutOfJokesMsg;
 
@@ -95,20 +96,22 @@ public class JokeManager : MonoBehaviour
 
         correctAnswer = Random.Range(0, 4);
         answers[correctAnswer].text = joke.correctAnswer;
+        answersKeyboard[correctAnswer].text = joke.correctAnswer;
 
         int wrongJoke = 0;
 
         for (int i = 0; i < answers.Length; i++)
         {
             answers[i].color = Color.white;
+            answersKeyboard[i].color = Color.white;
 
             if (wrongJoke > joke.wrongAmount)
                 break;
 
             if (i != correctAnswer)
             {
-                Debug.Log(i);
                 answers[i].text = joke.wrongAnswers[wrongJoke];
+                answersKeyboard[i].text = joke.wrongAnswers[wrongJoke];
                 wrongJoke++;
             }
         }
@@ -120,9 +123,13 @@ public class JokeManager : MonoBehaviour
         {
             GameManager.Instance.AddResource(3, 1);
             answers[correctAnswer].color = Color.green;
+            answersKeyboard[correctAnswer].color = Color.green;
         }
         else
+        {
             answers[correctAnswer].color = Color.red;
+            answersKeyboard[correctAnswer].color = Color.red;
+        }
     }
 
     public void OutOfJokes()

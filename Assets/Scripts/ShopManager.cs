@@ -1,6 +1,6 @@
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class ShopManager : MonoBehaviour
 {
@@ -8,6 +8,8 @@ public class ShopManager : MonoBehaviour
 
     [SerializeField] private GameObject landUpgrade;
     [SerializeField] private GameObject boatUpgrade;
+    [SerializeField] private Image resourceImg;
+    [SerializeField] private Sprite[] resources;
 
     private Island currentIsland;
 
@@ -37,12 +39,14 @@ public class ShopManager : MonoBehaviour
         if (!window.activeSelf)
             return;
 
+        resourceImg.sprite = resources[island.resourceType];
+
         //Makes sure upgrade can't be bought twice
         landUpgrade.SetActive(!island.upgrade.activeSelf);
         boatUpgrade.SetActive(!island.bigBoat.activeSelf);
     }
 
-    public void ButtonA(InputAction.CallbackContext context)
+    public void ButtonX(InputAction.CallbackContext context)
     {
         if (context.phase == InputActionPhase.Performed)
         {
@@ -60,7 +64,7 @@ public class ShopManager : MonoBehaviour
 
     public void BuyLandUpgrade()
     {
-        if (currentIsland == null && !landUpgrade.activeSelf && currentIsland.upgrade == null)
+        if (currentIsland == null || !landUpgrade.activeSelf || currentIsland.upgrade == null || !IsActive())
             return;
 
         if (GameManager.Instance.lumberAmount >= 2 && GameManager.Instance.foodAmount >= 2)
@@ -80,7 +84,7 @@ public class ShopManager : MonoBehaviour
 
     public void BuyBoatUpgrade()
     {
-        if (currentIsland == null && !boatUpgrade.activeSelf && currentIsland.bigBoat == null)
+        if (currentIsland == null || !boatUpgrade.activeSelf || currentIsland.bigBoat == null || !IsActive())
             return;
 
         if (GameManager.Instance.lumberAmount >= 3 && GameManager.Instance.stoneAmount >= 3)
@@ -101,5 +105,10 @@ public class ShopManager : MonoBehaviour
     public void CloseStorefront()
     {
         transform.GetChild(0).gameObject.SetActive(false);
+    }
+
+    private bool IsActive()
+    {
+        return transform.GetChild(0).gameObject.activeSelf;
     }
 }

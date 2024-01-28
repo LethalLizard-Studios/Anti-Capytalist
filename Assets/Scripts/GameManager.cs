@@ -85,6 +85,8 @@ public class GameManager : MonoBehaviour
             island.resourceAmount += island.resourceMultiplier;
         }
 
+        InteractionInterface.Instance.UpdateHarvestAmount();
+
         StartCoroutine(CollectTimer());
     }
 }
